@@ -7389,54 +7389,136 @@ process.umask = function() { return 0; };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 let config = {
-    apiKey: "AIzaSyCN_JQcGwvCVh5mUBOno_YCR_BONey08Fs",
-    authDomain: "vuejs-http-aa65e",
-    databaseURL: "https://vuejs-http-aa65e.firebaseio.com/",
-    storageBucket: "vuejs-http-aa65e.appspot.com",
-    messagingSenderId: "444555911896"
+    apiKey: "AIzaSyAyW1tqSHnlv0kdCR0r4711yImSvhb9lWc",
+    authDomain: "dulich-4282e.firebaseapp.com",
+    databaseURL: "https://dulich-4282e.firebaseio.com",
+    projectId: "dulich-4282e",
+    storageBucket: "dulich-4282e.appspot.com",
+    messagingSenderId: "421241029703"
 };
 
 let app = __WEBPACK_IMPORTED_MODULE_0_firebase___default.a.initializeApp(config);
 let db = app.database();
-let booksRef = db.ref('books');
+let toursRef = db.ref('tours');
+var storage = app.storage('gs://dulich-4282e.appspot.com');
+let upLoad = storage.ref();
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'app',
     data() {
         return {
-            newBook: {
-                title: '',
-                author: '',
-                url: 'http://'
+            newTour: {
+                ma: '',
+                ten: '',
+                diadiem: '',
+                hinhanh: '',
+                gioithieu: '',
+                rating: ''
             },
+            valueImage: '',
+            preview: 'http://qh-hdnd.phuyen.gov.vn/wps/wcm/connect/c9aed34d-4f57-42de-9e6e-cbfde85bb5e5/photo_default_0.png?MOD=AJPERES&CACHEID=c9aed34d-4f57-42de-9e6e-cbfde85bb5e5',
+            uploadTask: '',
             errors: []
         };
     },
     firebase: {
-        books: booksRef
+        tours: toursRef
     },
     methods: {
-        addBook(e) {
+        changeImage(e) {
+            e.preventDefault();
+            let reader = new FileReader();
+            let file = e.target.files[0];
+
+            reader.onloadend = () => {
+                this.newTour.hinhanh = file;
+                this.preview = reader.result;
+            };
+
+            this.uploadTask = upLoad.child(`images/${file.name}`).put(file);
+            this.uploadTask.then(snapshot => {
+                this.newTour.hinhanh = this.uploadTask.snapshot.downloadURL;
+            });
+            reader.readAsDataURL(file);
+            console.log(this.checkImage);
+        },
+
+        addTour(e) {
             this.errors = [''];
-            if (!this.newBook.title) this.errors.push("Name required.");
-            if (!this.newBook.author) this.errors.push("Author required.");
+            if (!this.newTour.ma) {
+                this.errors.push("Ma dia diem required.");
+                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.warning("Ma dia diem required.");
+            }
+
+            if (!this.newTour.ten) {
+                this.errors.push("Ten dia diem required.");
+                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.warning("Ten dia diem required.");
+            }
+
+            if (!this.newTour.diadiem) {
+                this.errors.push("Dia diem required.");
+                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.warning("Dia diem required.");
+            }
+
+            if (!this.newTour.ten) {
+                this.errors.push("Gioi thieu required.");
+                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.warning("Gioi thieu required.");
+            }
+
+            if (!this.newTour.rating) {
+                this.errors.push("Rating required.");
+                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.warning("Rating required.");
+            }
+
             e.preventDefault();
             if (this.errors == '') {
-                booksRef.push(this.newBook);
-                this.newBook.title = '';
-                this.newBook.author = '';
-                this.newBook.url = 'http://';
-                __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.success('Book added successfully');
+                toursRef.push(this.newTour);
+                this.$refs.imageFile.value = '';
+                this.newTour.ma = '';
+                this.newTour.ten = '';
+                this.newTour.diadiem = '';
+                this.newTour.hinhanh = '';
+                this.newTour.gioithieu = '';
+                this.newTour.rating = '';
+                this.preview = 'http://qh-hdnd.phuyen.gov.vn/wps/wcm/connect/c9aed34d-4f57-42de-9e6e-cbfde85bb5e5/photo_default_0.png?MOD=AJPERES&CACHEID=c9aed34d-4f57-42de-9e6e-cbfde85bb5e5', __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.success('Tour added successfully');
             }
         },
-        removeBook(book) {
-            booksRef.child(book['.key']).remove();
-            __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.success('Book removed successfully');
+
+        remove(tour) {
+            toursRef.child(tour['.key']).remove();
+            __WEBPACK_IMPORTED_MODULE_1_toastr___default.a.success('Tour removed successfully');
         }
     }
 });
@@ -25392,7 +25474,7 @@ Vue$3.compile = compileToFunctions;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(42);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4589a29c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_69dc54d0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(174);
 function injectStyle (ssrContext) {
   __webpack_require__(85)
 }
@@ -25412,7 +25494,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_App_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4589a29c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_69dc54d0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -25433,7 +25515,7 @@ var content = __webpack_require__(86);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(88)("06f86955", content, true, {});
+var update = __webpack_require__(88)("4b7a9de5", content, true, {});
 
 /***/ }),
 /* 86 */
@@ -25444,7 +25526,7 @@ exports = module.exports = __webpack_require__(87)(false);
 
 
 // module
-exports.push([module.i, "#app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#2c3e50;margin-top:20px}ul li{list-style-type:none}", ""]);
+exports.push([module.i, "#app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#2c3e50;margin-top:20px;width:1800px}ul li{list-style-type:none}.text-center{text-align:center}", ""]);
 
 // exports
 
@@ -48634,8 +48716,8 @@ module.exports = function() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"app"}},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"panel panel-default"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"panel-body"},[_c('form',{staticClass:"form-inline",attrs:{"id":"form"},on:{"submit":function($event){$event.preventDefault();_vm.addBook($event)}}},[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"bookTitle"}},[_vm._v("Title:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newBook.title),expression:"newBook.title"}],staticClass:"form-control",attrs:{"type":"text","id":"bookTitle"},domProps:{"value":(_vm.newBook.title)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newBook, "title", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"bookAuthor"}},[_vm._v("Author:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newBook.author),expression:"newBook.author"}],staticClass:"form-control",attrs:{"type":"text","id":"bookAuthor"},domProps:{"value":(_vm.newBook.author)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newBook, "author", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"bookUrl"}},[_vm._v("Url:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newBook.url),expression:"newBook.url"}],staticClass:"form-control",attrs:{"type":"text","id":"bookUrl"},domProps:{"value":(_vm.newBook.url)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newBook, "url", $event.target.value)}}})]),_vm._v(" "),_c('input',{staticClass:"btn btn-primary",attrs:{"type":"submit","value":"Add Book"}})]),_vm._v(" "),_c('br'),_vm._v(" "),(_vm.errors.length)?_c('p',[_c('ul',{staticClass:"alert alert-danger"},_vm._l((_vm.errors),function(error,index){return _c('li',{key:index},[_vm._v(_vm._s(error))])}))]):_vm._e()])]),_vm._v(" "),_c('div',{staticClass:"panel panel-default"},[_vm._m(2),_vm._v(" "),_c('div',{staticClass:"panel-body"},[_c('table',{staticClass:"table table-striped"},[_vm._m(3),_vm._v(" "),_c("transition-group",{tag:"tbody",attrs:{"name":"custom-classes-transition","enter-active-class":"animated tada","leave-active-class":"animated bounceOutRight"}},_vm._l((_vm.books),function(book){return _c('tr',{key:book['.key']},[_c('td',[_c('a',{attrs:{"href":book.url}},[_vm._v(_vm._s(book.title))])]),_vm._v(" "),_c('td',[_vm._v(_vm._s(book.author))]),_vm._v(" "),_c('td',[_c('span',{staticClass:"glyphicon glyphicon-trash",attrs:{"aria-hidden":"true"},on:{"click":function($event){_vm.removeBook(book)}}})])])}))])])])])}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page-header"},[_c('h1',[_c('img',{attrs:{"src":"http://book.framgia.vn/images/icon.jpg","alt":"","width":"67","height":"60"}}),_c('span',[_vm._v("FBook")])])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel-heading"},[_c('h3',{staticClass:"panel-title"},[_vm._v("Add New Books")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel-heading"},[_c('h3',{staticClass:"panel-title"},[_vm._v("Book List")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('thead',[_c('tr',[_c('th',[_vm._v("Title")]),_vm._v(" "),_c('th',[_vm._v("Author")]),_vm._v(" "),_c('th')])])}]
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"app"}},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"panel panel-default col-md-4"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"panel-body"},[_c('form',{staticClass:"form",attrs:{"id":"form"},on:{"submit":function($event){$event.preventDefault();_vm.addTour($event)}}},[_c('div',{staticClass:"form-group row col-md-12 text-center"},[_c('img',{attrs:{"src":_vm.preview,"width":"150","height":"150"}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"hinh anh"}},[_vm._v("Hình Ảnh:")]),_vm._v(" "),_c('input',{ref:"imageFile",staticClass:"123",attrs:{"type":"file","required":""},on:{"change":_vm.changeImage}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"madiemdulich"}},[_vm._v("Mã Điểm Du Lịch:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newTour.ma),expression:"newTour.ma"}],staticClass:"form-control",attrs:{"type":"text","id":"madiemdulich","required":""},domProps:{"value":(_vm.newTour.ma)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newTour, "ma", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"tendiemdulich"}},[_vm._v("Tên Điểm Du Lịch:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newTour.ten),expression:"newTour.ten"}],staticClass:"form-control",attrs:{"type":"text","id":"tendiemdulich","required":""},domProps:{"value":(_vm.newTour.ten)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newTour, "ten", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"diadiem"}},[_vm._v("Địa Điểm:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newTour.diadiem),expression:"newTour.diadiem"}],staticClass:"form-control",attrs:{"type":"text","id":"diadiem","required":""},domProps:{"value":(_vm.newTour.diadiem)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newTour, "diadiem", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"bookUrl"}},[_vm._v("Giới thiệu:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newTour.gioithieu),expression:"newTour.gioithieu"}],staticClass:"form-control",attrs:{"type":"text","id":"gioithieu","required":""},domProps:{"value":(_vm.newTour.gioithieu)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newTour, "gioithieu", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group row col-md-12"},[_c('label',{attrs:{"for":"bookUrl"}},[_vm._v("Rating:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newTour.rating),expression:"newTour.rating"}],staticClass:"form-control",attrs:{"type":"number","id":"rating","min":"0","max":"5","required":""},domProps:{"value":(_vm.newTour.rating)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.newTour, "rating", $event.target.value)}}})]),_vm._v(" "),_vm._m(2)])])]),_vm._v(" "),_c('div',{staticClass:"panel panel-default col-md-8"},[_vm._m(3),_vm._v(" "),_c('div',{staticClass:"panel-body"},[_c('table',{staticClass:"table table-striped"},[_vm._m(4),_vm._v(" "),_c("transition-group",{tag:"tbody",attrs:{"name":"custom-classes-transition","enter-active-class":"animated tada","leave-active-class":"animated bounceOutRight"}},_vm._l((_vm.tours),function(tour){return _c('tr',{key:tour['.key']},[_c('td',[_vm._v(_vm._s(tour.ma))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(tour.ten))]),_vm._v(" "),_c('td',[_c('img',{attrs:{"src":tour.hinhanh,"width":"100","height":"100"}})]),_vm._v(" "),_c('td',[_vm._v(_vm._s(tour.diadiem))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(tour.gioithieu))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(tour.rating))]),_vm._v(" "),_c('td',[_c('span',{staticClass:"glyphicon glyphicon-trash",attrs:{"aria-hidden":"true"},on:{"click":function($event){_vm.remove(tour)}}})])])}))])])])])])}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page-header"},[_c('h1',[_c('img',{attrs:{"src":"http://dulichchauagiare.com/logo-du-lich-chau-a-gia-re.png","alt":"","width":"100","height":"60"}}),_c('span',[_vm._v("Du Lịch")])])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel-heading"},[_c('h3',{staticClass:"panel-title"},[_vm._v("Thêm Điểm Du Lịch Mới")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group row col-md-12"},[_c('input',{staticClass:"btn btn-primary",attrs:{"type":"submit","value":"Thêm Mới"}})])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel-heading"},[_c('h3',{staticClass:"panel-title"},[_vm._v("Danh sách")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('thead',[_c('tr',[_c('th',[_vm._v("Mã Điểm Du Lịch")]),_vm._v(" "),_c('th',[_vm._v("Tên")]),_vm._v(" "),_c('th',[_vm._v("Hình Ảnh")]),_vm._v(" "),_c('th',[_vm._v("Địa Điểm")]),_vm._v(" "),_c('th',[_vm._v("Giới Thiệu")]),_vm._v(" "),_c('th',[_vm._v("Rating")])])])}]
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
