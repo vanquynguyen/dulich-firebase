@@ -46,7 +46,7 @@
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="diem-dl">
-                        <div class="row">
+                        <div class="row content">
                             <div class="panel panel-default col-md-4">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Thêm Điểm Du Lịch Mới</h3>
@@ -222,118 +222,118 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="danhgia">
-                        <div class="row">
-                            <div class="panel panel-default col-md-4">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Thêm Đánh Giá Mới</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form 
-                                        id="form" 
-                                        class="form" 
-                                        v-on:submit.prevent="addRate"
-                                    >
-                                        <div class="form-group row col-md-12">
-                                            <label 
-                                                for="madiemdulich"
-                                            >
-                                                Mã Điểm Du Lịch:
-                                            </label>
-                                            <select  
-                                                class="form-control" 
-                                                v-model="newRate.ma" 
-                                                required
-                                            >
-                                                <option v-for="tour in tours" :value="tour.ma" :key="tour.id">{{ tour.ten }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group row col-md-12">
-                                            <label 
-                                                for="username"
-                                            >
-                                                UserName:
-                                            </label>
-                                            <input 
-                                                type="text" 
-                                                id="username" 
-                                                class="form-control" 
-                                                v-model="newRate.username" 
-                                                required
-                                            />
-                                        </div>
-                                        <div class="form-group row col-md-12">
-                                            <label 
-                                                for="comment"
-                                            >
-                                                Bình Luận:
-                                            </label>
-                                            <input 
-                                                type="text" 
-                                                id="comment" 
-                                                class="form-control" 
-                                                v-model="newRate.comment" 
-                                                required
-                                            />
-                                        </div>
-                                        <div class="form-group row col-md-12">
-                                            <label 
-                                                for="rating"
-                                            >
-                                                Rating:
-                                            </label>
-                                            <input 
-                                                type="number" 
-                                                id="rating" 
-                                                min="0" 
-                                                max="5" 
-                                                class="form-control" 
-                                                v-model="newRate.rating" 
-                                                required
-                                            />
-                                        </div>
-                                        <div class="form-group row col-md-12">
-                                            <input 
-                                                type="submit" 
-                                                class="btn btn-primary" 
-                                                value="Thêm Mới"
-                                            />
-                                        </div>
-                                    </form>
-                                </div>
+                        <!-- <div class="panel panel-default col-md-4">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Thêm Đánh Giá Mới</h3>
                             </div>
-                            <div class="panel panel-default col-md-8">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Danh sách</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Mã Điểm Du Lịch</th>
-                                                <th>Username</th>
-                                                <th>Bình luận</th>
-                                                <th>Rating</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody 
-                                            name="custom-classes-transition"
-                                            enter-active-class="animated tada"
-                                            leave-active-class="animated bounceOutRight"
-                                            is="transition-group"
+                            <div class="panel-body">
+                                <form 
+                                    id="form" 
+                                    class="form" 
+                                    v-on:submit.prevent="addRate"
+                                >
+                                    <div class="form-group row col-md-12">
+                                        <label 
+                                            for="madiemdulich"
                                         >
-                                            <tr 
-                                                v-for="rate in rates" 
-                                                v-bind:key="rate['.key']"
-                                            >
-                                                <td>{{ rate.ma }}</td>
-                                                <td>{{ rate.username }}</td>
-                                                <td>{{ rate.comment }}</td>
-                                                <td>{{ rate.rating }}</td>
-                                                <td><span class="glyphicon glyphicon-trash" aria-hidden="true" v-on:click="removeRate(rate)"></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            Mã Điểm Du Lịch:
+                                        </label>
+                                        <select  
+                                            class="form-control" 
+                                            v-model="newRate.ma" 
+                                            required
+                                        >
+                                            <option v-for="tour in tours" :value="tour.ma" :key="tour.id">{{ tour.ten }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row col-md-12">
+                                        <label 
+                                            for="username"
+                                        >
+                                            UserName:
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="username" 
+                                            class="form-control" 
+                                            v-model="newRate.username" 
+                                            required
+                                        />
+                                    </div>
+                                    <div class="form-group row col-md-12">
+                                        <label 
+                                            for="comment"
+                                        >
+                                            Bình Luận:
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="comment" 
+                                            class="form-control" 
+                                            v-model="newRate.comment" 
+                                            required
+                                        />
+                                    </div>
+                                    <div class="form-group row col-md-12">
+                                        <label 
+                                            for="rating"
+                                        >
+                                            Rating:
+                                        </label>
+                                        <input 
+                                            type="number" 
+                                            id="rating" 
+                                            min="0" 
+                                            max="5" 
+                                            class="form-control" 
+                                            v-model="newRate.rating" 
+                                            required
+                                        />
+                                    </div>
+                                    <div class="form-group row col-md-12">
+                                        <input 
+                                            type="submit" 
+                                            class="btn btn-primary" 
+                                            value="Thêm Mới"
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        </div> -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Danh sách</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Điểm Du Lịch</th>
+                                            <th>Tên Điểm Du Lịch</th>
+                                            <th>Username</th>
+                                            <th>Bình luận</th>
+                                            <th>Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody 
+                                        name="custom-classes-transition"
+                                        enter-active-class="animated tada"
+                                        leave-active-class="animated bounceOutRight"
+                                        is="transition-group"
+                                    >
+                                        <tr 
+                                            v-for="rate in rates" 
+                                            v-bind:key="rate['.key']"
+                                        >
+                                            <td>{{ rate.ma }}</td>
+                                            <td>{{ rate.tendiemdulich }}</td>
+                                            <td>{{ rate.username }}</td>
+                                            <td>{{ rate.comment }}</td>
+                                            <td>{{ rate.rating }}</td>
+                                            <td><span class="glyphicon glyphicon-trash" aria-hidden="true" v-on:click="removeRate(rate)"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -603,6 +603,14 @@
 
     ul li {
         list-style-type: none;
+    }
+
+    .content {
+        margin: 0;
+    }
+
+    .col-md-4, .col-md-8 {
+        padding: 0;
     }
 
     .text-center {
