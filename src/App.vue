@@ -447,6 +447,27 @@
                     localStorage.setItem('checkAdmin', 'ok')
                     window.location = '';
                 }
+
+                this.errors = [''];
+                if(!this.email) {
+                    this.errors.push("Email required.")
+                    toastr.warning("Email required.");
+                }
+
+                if(this.email != 'admin@gmail.com') {
+                    this.errors.push("Email Invalid.")
+                    toastr.warning("Email Invalid.");
+                }
+
+                if(!this.password) {
+                    this.errors.push("Password required.")
+                    toastr.warning("Password required.");
+                }
+
+                if(this.password != '12345678') {
+                    this.errors.push("Password Invalid.")
+                    toastr.warning("Password Invalid.");
+                }
             },
 
             logout() {
