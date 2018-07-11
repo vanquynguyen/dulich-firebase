@@ -73,6 +73,30 @@
                                         </div>
                                         <div class="form-group row col-md-12">
                                             <label 
+                                                for="cumdiemdulich"
+                                            >
+                                                Cụm Điểm Du Lịch:
+                                            </label>
+                                            <select class="form-control"  
+                                                @change="onChangeTour"
+                                                v-model="newTour.danhmuc" 
+                                                id="cumdiemdulich" 
+                                                required
+                                            >
+                                                <option value="Miền Bắc">Miền Bắc</option>
+                                                <option value="Miền Trung">Miền Trung</option>
+                                                <option value="Miền Nam">Miền Nam</option>
+                                            </select>
+                                            <!-- <input 
+                                                type="text" 
+                                                id="cumdiemdulich" 
+                                                class="form-control" 
+                                                v-model="newTour.danhmuc" 
+                                                required
+                                            /> -->
+                                        </div>
+                                        <div class="form-group row col-md-12">
+                                            <label 
                                                 for="madiemdulich"
                                             >
                                                 Mã Điểm Du Lịch:
@@ -165,6 +189,7 @@
                                                 <th>Tên</th>
                                                 <th>Hình Ảnh</th>
                                                 <th>Địa Điểm</th>
+                                                <th>Cụm du lịch</th>
                                                 <th>Giới Thiệu</th>
                                                 <th>Rating</th>
                                             </tr>
@@ -187,6 +212,7 @@
                                                     </button>
                                                 </td>
                                                 <td>{{ tour.diadiem }}</td>
+                                                <td>{{ tour.danhmuc ? tour.danhmuc: ''  }}</td>
                                                 <td>{{ tour.gioithieu }}</td>
                                                 <td>{{ tour.rating }}</td>
                                                 <td><span class="glyphicon glyphicon-trash" aria-hidden="true" v-on:click="removeTour(tour)"></span></td>
@@ -410,6 +436,7 @@
                     hinhanh: [],
                     gioithieu: '',
                     rating: '',
+                    danhmuc: '',
                 },
                 newRate: {
                     ma: '',
@@ -497,18 +524,38 @@
                 this.showImages = image;
             },
 
+            onChangeTour() {
+                const danhmuc = this.newTour.danhmuc
+                if (danhmuc == 'Miền Bắc') {
+                    this.newTour.ma = 'MB'
+                }
+
+                if (danhmuc == 'Miền Trung') {
+                    this.newTour.ma = 'MT'
+                }
+
+                if (danhmuc == 'Miền Nam') {
+                    this.newTour.ma = 'MN'
+                }
+            },
+
             addTour(e) {
                 this.errors = [''];
+                if(!this.newTour.danhmuc) {
+                    this.errors.push("Cum diem du lich required.")
+                    toastr.warning("Ten dia diem required.");
+                }
+
                 if(!this.newTour.ma) {
-                    this.errors.push("Ma dia diem required.")
+                    this.errors.push("Ma diem du lich required.")
                     toastr.warning("Ma dia diem required.");
                 }
 
                 if(!this.newTour.ten) {
-                    this.errors.push("Ten dia diem required.")
+                    this.errors.push("Ten diem du lich required.")
                     toastr.warning("Ten dia diem required.");
                 }
-              
+
                 if(!this.newTour.diadiem) {
                     this.errors.push("Dia diem required.")
                     toastr.warning("Dia diem required.");
@@ -528,6 +575,7 @@
                 if(this.errors == '') {
                     toursRef.push(this.newTour);
                     this.$refs.imageFile.value = '';
+                    this.newTour.danhmuc = '';
                     this.newTour.ma = '';
                     this.newTour.ten = '';
                     this.newTour.diadiem = '';
