@@ -79,21 +79,15 @@
                                             </label>
                                             <select class="form-control"  
                                                 @change="onChangeTour"
-                                                v-model="newTour.danhmuc" 
+                                                v-model="danhmuc" 
                                                 id="cumdiemdulich" 
                                                 required
                                             >
-                                                <option value="Miền Bắc">Miền Bắc</option>
-                                                <option value="Miền Trung">Miền Trung</option>
-                                                <option value="Miền Nam">Miền Nam</option>
+                                                <option value="" disabled>Chọn cụm du lịch</option>
+                                                <option value="mienbac">Miền Bắc</option>
+                                                <option value="mientrung">Miền Trung</option>
+                                                <option value="miennam">Miền Nam</option>
                                             </select>
-                                            <!-- <input 
-                                                type="text" 
-                                                id="cumdiemdulich" 
-                                                class="form-control" 
-                                                v-model="newTour.danhmuc" 
-                                                required
-                                            /> -->
                                         </div>
                                         <div class="form-group row col-md-12">
                                             <label 
@@ -106,6 +100,7 @@
                                                 id="madiemdulich" 
                                                 class="form-control" 
                                                 v-model="newTour.ma" 
+                                                readonly
                                                 required
                                             />
                                         </div>
@@ -189,7 +184,6 @@
                                                 <th>Tên</th>
                                                 <th>Hình Ảnh</th>
                                                 <th>Địa Điểm</th>
-                                                <th>Cụm du lịch</th>
                                                 <th>Giới Thiệu</th>
                                                 <th>Rating</th>
                                             </tr>
@@ -212,7 +206,6 @@
                                                     </button>
                                                 </td>
                                                 <td>{{ tour.diadiem }}</td>
-                                                <td>{{ tour.danhmuc ? tour.danhmuc: ''  }}</td>
                                                 <td>{{ tour.gioithieu }}</td>
                                                 <td>{{ tour.rating }}</td>
                                                 <td><span class="glyphicon glyphicon-trash" aria-hidden="true" v-on:click="removeTour(tour)"></span></td>
@@ -436,7 +429,6 @@
                     hinhanh: [],
                     gioithieu: '',
                     rating: '',
-                    danhmuc: '',
                 },
                 newRate: {
                     ma: '',
@@ -450,6 +442,7 @@
                 checkAdmin: '',
                 email: '',
                 password: '',
+                danhmuc: '',
             }
         },
 
@@ -525,17 +518,18 @@
             },
 
             onChangeTour() {
-                const danhmuc = this.newTour.danhmuc
-                if (danhmuc == 'Miền Bắc') {
-                    this.newTour.ma = 'MB'
+                const danhmuc = this.danhmuc
+                const random = Math.floor(100000 + Math.random() * 900000);
+                if (danhmuc == 'mienbac') {
+                    this.newTour.ma = `MB${random}`
                 }
 
-                if (danhmuc == 'Miền Trung') {
-                    this.newTour.ma = 'MT'
+                if (danhmuc == 'mientrung') {
+                    this.newTour.ma = `MT${random}`
                 }
 
-                if (danhmuc == 'Miền Nam') {
-                    this.newTour.ma = 'MN'
+                if (danhmuc == 'miennam') {
+                    this.newTour.ma = `MN${random}`
                 }
             },
 
